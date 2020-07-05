@@ -29,7 +29,6 @@
   "scripts": {
     "dev": "react-scripts start",
     "postinstall": "react-scripts build",
-    "build": "webpack -p",
     "start": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
