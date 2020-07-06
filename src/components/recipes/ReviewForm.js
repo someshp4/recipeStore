@@ -4,9 +4,14 @@ import styled from 'styled-components';
 
 
 const TextArea = styled.textarea`
-    border-width: medium; 
     width: 60%;
     height: 100px;
+    border: 2px solid;
+`;
+
+const Button = styled.button`
+    border: 1px solid;
+    border-radius: 2px;
 `;
 
 const Form = styled.form`
@@ -46,7 +51,7 @@ const ReviewForm = (props) => {
     return (
         <Form onSubmit={props.handleSubmit(onSubmit)} onChange={(event) => event.preventDefault()} >
             <Field name="review" component={renderInput}  label="Review"/>
-            <button type="submit" >Add</button>
+            <Button type="submit" >Add</Button>
         </Form>
     );
 

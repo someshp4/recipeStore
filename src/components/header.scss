@@ -123,6 +123,15 @@
             margin: 1%;
         }
     }
+
+    div :focus {
+        outline: none;
+    }
+    
+
+    input::-moz-focus-inner, button::-moz-focus-inner { 
+        border: 0; 
+    }
        
 }
 
