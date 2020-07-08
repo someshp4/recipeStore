@@ -12,6 +12,9 @@ const TextArea = styled.textarea`
 const Button = styled.button`
     border: 1px solid;
     border-radius: 2px;
+    ::-moz-focus-inner { 
+        border: 0; 
+    }
 `;
 
 const Form = styled.form`

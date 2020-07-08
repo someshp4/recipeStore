@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 const NameDiv = styled.div`
     font-weight: bold;
+    font-size: larger;
 `;
 const Button = styled.button`
     border-radius: 5px;
@@ -15,6 +16,13 @@ const Button = styled.button`
     height: 30px;
     font-size: medium;
     width: auto;
+`;
+
+const Avatar = styled.img`
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 `;
 
 const GoogleAuth =  ({ isSignedIn, userName, signIn, signOut }) => {
@@ -54,9 +62,10 @@ const GoogleAuth =  ({ isSignedIn, userName, signIn, signOut }) => {
 
 
     if(isSignedIn) {
+        const profilePic = window.gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl();
         return (
             <div>
-                <NameDiv>Hi {userName.charAt(0).toUpperCase() + userName.slice(1)}</NameDiv>
+                <NameDiv>{profilePic? <Avatar src={profilePic} alt="Avatar"/> : ''} Hi {userName.charAt(0).toUpperCase() + userName.slice(1)}</NameDiv>
                 <div><Button onClick={ signOutClick }>LogOut</Button></div>
             </div>
         );

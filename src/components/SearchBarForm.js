@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const MealTypes = [ "any", "appetizer", "beverage", "breakfast", "dessert", "main course", "salad", "snack", "soup" ];
@@ -7,17 +7,30 @@ const CapitalizeFirst = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const SearchBarForm = (props) => {
+const SearchBarForm = () => {
     
     let history = useHistory();
+    //to retain values on page refresh
     const paramsObject = new URLSearchParams(history.location.search);
     
-    const mealTypeDef = paramsObject.get('mealType')? paramsObject.get('mealType') : '';
+    const mealTypeDef = paramsObject.get('mealType')? paramsObject.get('mealType') : 'Any';
     const searchTermDef = paramsObject.get('searchTerm')? paramsObject.get('searchTerm') : '';
+    
     
     const [mealType, setMealType] = useState(mealTypeDef);
     const [searchTerm, setSearchTerm] = useState(searchTermDef);
-    
+
+
+    useEffect(() => {
+        return history.listen((location) => {
+            const paramsObject = new URLSearchParams(location.search);
+            const mealTypeDef = paramsObject.get('mealType')? paramsObject.get('mealType') : '';
+            const searchTermDef = paramsObject.get('searchTerm')? paramsObject.get('searchTerm') : '';
+            setMealType(mealTypeDef);
+            setSearchTerm(searchTermDef);
+        })
+       
+    }, [history]);
 
     const handleMealTypeChange = (event)  => {
         setMealType(event.target.value);

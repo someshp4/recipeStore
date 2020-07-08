@@ -17,13 +17,15 @@ const RecipeList = ({ defaultRecipies, fetchRecipes, error }) => {
 
     useEffect(() => { fetchRecipes(mealType, searchTerm) }, [ mealType, searchTerm ]);
 
-    if (defaultRecipies.recipeList) {
+    if (!error.isAPIError && !defaultRecipies.isNoSearchResults && defaultRecipies.recipeList) {
         const baseImageUri = defaultRecipies.baseImageUri? defaultRecipies.baseImageUri : '';
         return (
             <div className="cards">
                 {Object.values(defaultRecipies.recipeList).map(result => <RecipeCard key={result.id} id={result.id} title={result.title} imageUri={baseImageUri + result.image} />)}
             </div>
         );
+    } else if(defaultRecipies.isNoSearchResults) {
+        return <Error message={defaultRecipies.searchResultsErrorMessage} />;
     }
     return error.isAPIError? <Error message={error.errorMessage} /> : <Spinner />;
 };

@@ -1,6 +1,6 @@
 import recipes from '../apis/recipes';
 import dataStore from '../apis/dataStore';
-import { API_ERROR, SERVER_ERROR, SIGN_IN, SIGN_OUT, FETCH_RECIPES, FETCH_RECIPE_INFO, FETCH_RECIPE_REVIEWS, SAVE_RECIPE_REVIEW, UPDATE_RECIPE_REVIEW, FETCH_RECIPE_LIKES, SAVE_RECIPE_LIKE, DELETE_RECIPE_LIKE } from './types';
+import { NO_SEARCH_RESULTS, API_ERROR, SERVER_ERROR, SIGN_IN, SIGN_OUT, FETCH_RECIPES, FETCH_RECIPE_INFO, FETCH_RECIPE_REVIEWS, SAVE_RECIPE_REVIEW, UPDATE_RECIPE_REVIEW, FETCH_RECIPE_LIKES, SAVE_RECIPE_LIKE, DELETE_RECIPE_LIKE } from './types';
 
 export const signIn = (userProfile) => {
     return {
@@ -29,10 +29,17 @@ export const fetchRecipes = (mealType, searchTerm) => async (dispatch) => {
         const response = await recipes.get('/recipes/search', {
             params: queryParams
         });
-        dispatch({
-            type : FETCH_RECIPES,
-            payload : response.data
-        });
+        if(response.data.results.length === 0) {
+            dispatch({
+                type : NO_SEARCH_RESULTS,
+                payload : `Found 0 results for '${searchTerm}' ${mealType && mealType!=='any' ? `of mealType '${mealType}'` : ''} , please try with another search word`
+            });
+        } else {
+            dispatch({
+                type : FETCH_RECIPES,
+                payload : response.data
+            });
+        }
     } catch (e) {
         console.log("fetchRecipes", e);
         dispatch({
@@ -86,7 +93,9 @@ export const saveRecipeReview = (recipeId, formValues) => async (dispatch, getSt
         obj.recipeId = recipeId;
         obj.userId = getState().auth.userId;
         obj.userName = getState().auth.userName;
-        obj.createdOn = new Date().toLocaleDateString();
+        obj.userEmail = getState().auth.userEmail;
+        const date = new Date();
+        obj.createdOn = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
         obj.review = formValues.review;
         const response = await dataStore.post(`/reviews`, obj);
 
@@ -107,7 +116,9 @@ export const updateRecipeReview = (recipeId, formValues) => async (dispatch, get
     try {
         const obj = getState().reviews[recipeId][getState().auth.userId];
         obj.userName = getState().auth.userName;
-        obj.createdOn = new Date().toLocaleDateString();
+        obj.userEmail = getState().auth.userEmail;
+        const date = new Date();
+        obj.createdOn = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
         obj.review = formValues.review;
         const response = await dataStore.patch(`/reviews/${obj.id}`, obj);
 
@@ -149,6 +160,9 @@ export const saveRecipeLike = (recipeId) => async (dispatch, getState) => {
         const obj = {};
         obj.recipeId = recipeId;
         obj.userId = getState().auth.userId;
+        obj.userEmail = getState().auth.userEmail;
+        const date = new Date();
+        obj.createdOn = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
         const response = await dataStore.post(`/likes`, obj);
 
         dispatch({
