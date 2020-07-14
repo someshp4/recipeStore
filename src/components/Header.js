@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import GoogleAuth from './GoogleAuth';
+import { connect } from 'react-redux';
+import Login from './auth/Login';
+import Logout from './auth/Logout';
 import SearchBarForm from './SearchBarForm';
 import './header.scss';
 
-const Header = () => {
+const Header = ({ isSignedIn, userName }) => {
 
     return (
         <div className="menu">
@@ -12,10 +14,16 @@ const Header = () => {
                 <Link to='/' ><h1>RecipeStore</h1></Link>
             </div>
             <SearchBarForm/>
-            <div className="loginComp"><GoogleAuth /></div>
+            <div className="loginComp">
+                {isSignedIn? <Logout userName={userName} /> : <Login label='Login with Google' type='button' />}
+            </div>
         </div>
     );
 
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+    return { isSignedIn: state.auth.isSignedIn, userName: state.auth.userName };
+};
+
+export default connect(mapStateToProps, null)(Header);

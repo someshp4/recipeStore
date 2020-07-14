@@ -6,6 +6,7 @@ import Like from './Like';
 import Error from '../Error';
 import './RecipeDetails.scss';
 import Spinner from '../Spinner';
+import Login from '../Login';
 
 const RecipeReviews = (props) => {
 
@@ -39,7 +40,7 @@ const RecipeReviews = (props) => {
             <div>
                 <div>
                     <h3>Reviews({props.review? Object.keys(props.review).length : 0}) | Likes : {props.like? Object.keys(props.like).length : 0}</h3>
-                    { !props.isSignedIn && <h4>Please Login to Like (or) Add a Review</h4>}
+                    { !props.isSignedIn && <Login label='Please Login to Like (or) Add a Review' type='link'/>}
                     { props.isSignedIn && <Like onClick={onClick} likeObj={likeObj()}/> }
                     { props.isSignedIn && <ReviewFrom onSubmit={onSubmit} /> }
                 </div>
