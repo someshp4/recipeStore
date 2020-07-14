@@ -34,11 +34,12 @@ const SearchBarForm = () => {
 
     const handleMealTypeChange = (event)  => {
         setMealType(event.target.value);
-    }
+        triggerFilterSearch(event.target.value, '');
+    };
 
     const handleSearchBoxChange = (event)  => {
         setSearchTerm(event.target.value);
-    }
+    };
     
     const getQueryString = (mealType, searchTerm) => {
         const params = new URLSearchParams();
@@ -51,11 +52,15 @@ const SearchBarForm = () => {
         return params.toString();
     };
 
-    const handleSubmit = (event) => {
-        const params = getQueryString(event.target.mealType.value, event.target.searchInput.value);
-        event.preventDefault();
+    const triggerFilterSearch = (mealTypeVal, searchTermVal) => {
+        const params = getQueryString(mealTypeVal, searchTermVal);
         history.push({pathname: '/recipes/search', search: '?'+params});
-    }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        triggerFilterSearch(event.target.mealType.value, event.target.searchInput.value);   
+    };
 
     return (
             <form onSubmit={handleSubmit} className="searchBar">
