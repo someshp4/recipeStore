@@ -6,7 +6,7 @@ import Like from './Like';
 import Error from '../Error';
 import './RecipeDetails.scss';
 import Spinner from '../Spinner';
-import Login from '../Login';
+import Login from '../auth/Login';
 
 const RecipeReviews = (props) => {
 
