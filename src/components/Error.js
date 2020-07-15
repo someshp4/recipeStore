@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const Span = styled.span`
-    color:red;
+    color: ${({ theme }) => theme.errorColor};
 `;
 
 const Error = ({ message }) => {

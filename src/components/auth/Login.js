@@ -14,7 +14,7 @@ const Button = styled.button`
 
 const LoginLink = styled.p`
     text-decoration: underline;
-    color: blue; 
+    color: ${({ theme }) => theme.homeButtonColor}; 
     cursor: pointer;
     font-style: italic;
 `;

@@ -8,7 +8,6 @@
     
     @media (min-width: 800px) {
         flex-direction: row;
-        background-color: lightblue; 
     }
 
     .home {
@@ -16,16 +15,14 @@
         width: 98%;
         text-align: center;
         align-self: center;
-        background-color: lightblue; 
+
         @media (min-width: 800px) {
             padding-left: 1%;
             padding-right: 1%;
             margin: auto;
             width: 23%;
         }
-        h1 {
-            color: blue;
-        }
+
         a {
             text-decoration: none;
         }
@@ -39,11 +36,10 @@
         align-self: center;
         display: flex;
         flex-direction: column;
-        background-color: lightblue; 
 
         @media (min-width: 800px) {
             margin: auto;
-            width: 55%;
+            width: 50%;
             border-radius: 10px;
             flex-direction: row;
         }
@@ -81,7 +77,6 @@
             justify-content: center;
             margin: 1%;
             height: 30px;
-            
 
             @media (min-width: 800px) {
                 padding: 1%;
@@ -94,8 +89,9 @@
                 width: 40%;
                 padding-left: 2px;
                 font-size: medium;
+                
                 @media (min-width: 800px) {
-                    width: 80%;
+                    width: 70%;
                 }
             }
             .submitInput {
@@ -104,23 +100,32 @@
                 font-size: medium;
                 width: auto;
                 @media (min-width: 800px) {
-                    min-width: 20%;
+                    min-width: 30%;
                 }
             }
         }
     }
-    .loginComp {
-        background-color: lightblue; 
+    .loginComp { 
         margin: 1%;
         align-self: center;
         width: 98%;
         @media (min-width: 800px) {
-            width: 18%;
+            width: 20%;
         }
 
         div {
             text-align: center;
             margin: 1%;
+        }
+    }
+
+    .themeComp {
+        margin: 1%;
+        text-align: center;
+        align-self: center;
+        width: 98%;
+        @media (min-width: 800px) {
+            width: 3%;
         }
     }
 

@@ -5,6 +5,22 @@ import RecipeReviews from './RecipeReviews';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import './RecipeDetails.scss';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+
+    color: ${({ theme }) => theme.text};
+    
+    a, button, textarea {
+        color: ${({ theme }) => theme.text};
+        background-color:  ${({ theme }) => theme.buttonBackground};
+        border-color: ${({ theme }) => theme.buttonBorder};
+    }
+
+    img {
+        filter: ${({ theme }) => theme.imageFilter};
+    }
+`;
 
 
 const RecipeDetail = (props) => {
@@ -13,7 +29,7 @@ const RecipeDetail = (props) => {
 
     if(props.selectedRecipe && props.selectedRecipe.sourceName) {
         return(
-            <div className="recipe-details-container">
+            <StyledDiv className="recipe-details-container">
                 <div className="recipe-info-container">
                     <div className="recipe-info-item">
                         <img src={props.baseImageUri? props.baseImageUri+props.selectedRecipe.image : props.selectedRecipe.image} alt="recipe"/>
@@ -34,7 +50,7 @@ const RecipeDetail = (props) => {
                 </div>
                 <hr/>
                 <RecipeReviews recipeId={props.selectedRecipe.id}/>
-            </div>
+            </StyledDiv>
         );
     }  
     return props.error.isAPIError? <Error message={props.error.errorMessage} /> : <Spinner />;

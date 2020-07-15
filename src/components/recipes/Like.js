@@ -10,9 +10,10 @@ const Div = styled.div`
 `;
 
 const Span = styled.span`
+    cursor: pointer;
     margin: 1%;
     font-size: 4vw;
-    color: ${props => props.liked? "blue" : "grey" };
+    color: ${props => props.liked? props.theme.likeColor : "grey" };
     @media (min-width: 900px) {
         font-size: 2vw;
     }
